@@ -82,3 +82,43 @@ body {
   font-size: 18px;
   z-index: 10; /* Bu satırı ekleyin */
 }
+.color-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.color-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+  margin: 0 5px; /* İstenilen boşluk değeri */
+}
+
+.color-button.W {
+  background-color: silver; /* Gümüş rengi */
+}
+
+.color-button.R {
+  background-color: #e74c3c; /* Gül rengi */
+}
+
+.color-button.Y {
+  background-color: #f1c40f; /* Sarı rengi */
+}
+
+.color-button.active {
+  transform: scale(1.1); /* Etkin renk butonunu biraz büyütme */
+}
+.product-slider-container {
+  text-align: center;
+}
+
+.color-buttons-container {
+  display: inline-block;
+  margin-top: 10px;
+}

@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 
 import 'swiper/swiper-bundle.css';
+import './ProductSlider.css'; // Yeni eklenen CSS dosyası
 
 const ProductSlider = () => {
   const products = [
@@ -19,12 +20,11 @@ const ProductSlider = () => {
     { id: 8, name: 'EG115', price: 19.99 },
   ];
 
-  const colors = ['W', 'R', 'Y']; // Renk seçenekleri
+  const colors = ['Y', 'R', 'W']; // Renk seçenekleri
 
   const [activeProductIndex, setActiveProductIndex] = useState(0);
   const [slidesPerView, setSlidesPerView] = useState(calculateSlidesPerView());
 
-  // slidesPerView değerini belirlemek için bir fonksiyon
   function calculateSlidesPerView() {
     const screenWidth = window.innerWidth;
 
@@ -39,9 +39,12 @@ const ProductSlider = () => {
     }
   }
 
-  // calculateSlidesPerView fonksiyonunu useEffect içinde çağırın
   useEffect(() => {
     setSlidesPerView(calculateSlidesPerView());
+  }, []);
+
+  useEffect(() => {
+    setActiveProductIndex(0); 
   }, []);
 
   const handleProductButtonClick = (productIndex) => {
@@ -49,56 +52,60 @@ const ProductSlider = () => {
   };
 
   useEffect(() => {
-    // pencere boyutu değiştikçe slidesPerView değerini güncelle
     const handleResize = () => {
       setSlidesPerView(calculateSlidesPerView());
     };
 
-    // pencere boyutu değiştiğinde event listener'ı ekle
     window.addEventListener('resize', handleResize);
 
-    // component unmount olduğunda event listener'ı kaldır
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
+  const handleColorButtonClick = (colorIndex) => {
+    setActiveProductIndex(colorIndex);
+  };
+
   return (
-    <Swiper
-      spaceBetween={20}
-      navigation
-      pagination={{ clickable: true }}
-      slidesPerView={slidesPerView} // slidesPerView değerini state'ten alın
-      loop={true}
-      mousewheel={true}
-      keyboard={true}
-      modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-      className="mySwiper"
-    >
-      {products.map((product) => (
-        <SwiperSlide key={product.id}>
-          <div className="product-slide">
-            <img
-              src={`images/Products/${product.name}/${product.name}-${colors[activeProductIndex]}.jpg`}
-              alt={`${product.name}-${colors[activeProductIndex]}`}
-            />
-            <h3>{product.name}</h3>
-            <p>Fiyat: ${product.price}</p>
-            <div className="product-buttons">
-              {colors.map((colorProduct, index) => (
-                <button
-                  key={colorProduct}
-                  className={`product-button ${colorProduct === colors[activeProductIndex] ? 'active' : ''}`}
-                  onClick={() => handleProductButtonClick(index)}
-                >
-                  {colorProduct}
-                </button>
-              ))}
+    <div>
+      <Swiper
+        spaceBetween={20}
+        navigation
+        pagination={{ clickable: true }}
+        slidesPerView={slidesPerView}
+        loop={true}
+        mousewheel={true}
+        keyboard={true}
+        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+        className="mySwiper"
+      >
+        {products.map((product) => (
+          <SwiperSlide key={product.id}>
+            <div className="product-slide">
+              <img
+                src={`images/Products/${product.name}/${product.name}-${colors[activeProductIndex]}.jpg`}
+                alt={`${product.name}-${colors[activeProductIndex]}`}
+                className="product-image"
+              />
+              <h3>{product.name}</h3>
+              <p>Fiyat: ${product.price}</p>
+              <div className="color-buttons-container">
+                {colors.map((color, index) => (
+                  <button
+                    key={color}
+                    className={`color-button product-buttons ${color} ${index === activeProductIndex ? 'active' : ''}`}
+                    onClick={() => handleColorButtonClick(index)}
+                  >
+                    <span className={`dot ${color} ${index === activeProductIndex ? 'active' : ''}`}></span>
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 
