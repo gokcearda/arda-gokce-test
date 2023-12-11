@@ -22,7 +22,7 @@ const ProductSlider = () => {
 
   const colors = ['Y', 'R', 'W']; // Renk seçenekleri
 
-  const [activeProductIndex, setActiveProductIndex] = useState(0);
+  const [activeProductIndexes, setActiveProductIndexes] = useState(Array(products.length).fill(0));
   const [slidesPerView, setSlidesPerView] = useState(calculateSlidesPerView());
 
   function calculateSlidesPerView() {
@@ -43,12 +43,12 @@ const ProductSlider = () => {
     setSlidesPerView(calculateSlidesPerView());
   }, []);
 
-  useEffect(() => {
-    setActiveProductIndex(0); 
-  }, []);
-
   const handleProductButtonClick = (productIndex) => {
-    setActiveProductIndex(productIndex);
+    setActiveProductIndexes((prevIndexes) => {
+      const newIndexes = [...prevIndexes];
+      newIndexes[productIndex] = 0; // Her ürünün kendi içindeki activeProductIndex'i sıfırla
+      return newIndexes;
+    });
   };
 
   useEffect(() => {
@@ -63,8 +63,12 @@ const ProductSlider = () => {
     };
   }, []);
 
-  const handleColorButtonClick = (colorIndex) => {
-    setActiveProductIndex(colorIndex);
+  const handleColorButtonClick = (colorIndex, productIndex) => {
+    setActiveProductIndexes((prevIndexes) => {
+      const newIndexes = [...prevIndexes];
+      newIndexes[productIndex] = colorIndex; // Sadece tıklanan ürünün activeProductIndex'ini güncelle
+      return newIndexes;
+    });
   };
 
   return (
@@ -80,12 +84,12 @@ const ProductSlider = () => {
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
         className="mySwiper"
       >
-        {products.map((product) => (
+        {products.map((product, productIndex) => (
           <SwiperSlide key={product.id}>
             <div className="product-slide">
               <img
-                src={`images/Products/${product.name}/${product.name}-${colors[activeProductIndex]}.jpg`}
-                alt={`${product.name}-${colors[activeProductIndex]}`}
+                src={`images/Products/${product.name}/${product.name}-${colors[activeProductIndexes[productIndex]]}.jpg`}
+                alt={`${product.name}-${colors[activeProductIndexes[productIndex]]}`}
                 className="product-image"
               />
               <h3>{product.name}</h3>
@@ -94,10 +98,10 @@ const ProductSlider = () => {
                 {colors.map((color, index) => (
                   <button
                     key={color}
-                    className={`color-button product-buttons ${color} ${index === activeProductIndex ? 'active' : ''}`}
-                    onClick={() => handleColorButtonClick(index)}
+                    className={`color-button product-buttons ${color} ${index === activeProductIndexes[productIndex] ? 'active' : ''}`}
+                    onClick={() => handleColorButtonClick(index, productIndex)}
                   >
-                    <span className={`dot ${color} ${index === activeProductIndex ? 'active' : ''}`}></span>
+                    <span className={`dot ${color} ${index === activeProductIndexes[productIndex] ? 'active' : ''}`}></span>
                   </button>
                 ))}
               </div>
