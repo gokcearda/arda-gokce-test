@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 
 import 'swiper/swiper-bundle.css';
-import './ProductSlider.css'; // Yeni eklenen CSS dosyası
+import './ProductSlider.css'; 
 
 const ProductSlider = () => {
   const products = [
