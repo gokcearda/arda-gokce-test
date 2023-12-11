@@ -46,7 +46,7 @@ const ProductSlider = () => {
   const handleProductButtonClick = (productIndex) => {
     setActiveProductIndexes((prevIndexes) => {
       const newIndexes = [...prevIndexes];
-      newIndexes[productIndex] = 0; // Her ürünün kendi içindeki activeProductIndex'i sıfırla
+      newIndexes[productIndex] = 0;
       return newIndexes;
     });
   };
@@ -66,13 +66,24 @@ const ProductSlider = () => {
   const handleColorButtonClick = (colorIndex, productIndex) => {
     setActiveProductIndexes((prevIndexes) => {
       const newIndexes = [...prevIndexes];
-      newIndexes[productIndex] = colorIndex; // Sadece tıklanan ürünün activeProductIndex'ini güncelle
+      newIndexes[productIndex] = colorIndex;
       return newIndexes;
     });
   };
 
   return (
     <div>
+        <div className="icons-container">
+        <img src="images/Svg/Union.svg" alt="Icon 1" className="icon" />
+        <img src="images/Svg/solar_wallet-money-linear.svg" alt="Icon 2" className="icon" />
+      </div>
+
+
+      <h1 className="store-title">My Jewellery Store</h1>
+      <h2 className="section-title">Moissanite Engagement Rings</h2>
+
+      
+
       <Swiper
         spaceBetween={20}
         navigation
@@ -92,8 +103,8 @@ const ProductSlider = () => {
                 alt={`${product.name}-${colors[activeProductIndexes[productIndex]]}`}
                 className="product-image"
               />
-              <h3>{product.name}</h3>
-              <p>Fiyat: ${product.price}</p>
+      <h3 className="product-name">{`Engagement Ring ${product.id}`}</h3>
+              <p className='product-price'>Fiyat: ${product.price}</p>
               <div className="color-buttons-container">
                 {colors.map((color, index) => (
                   <button
@@ -109,6 +120,13 @@ const ProductSlider = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <div className="button-container">
+        <button className="view-all-button">
+          <img src="images/Svg/Group 2.svg" alt="View All Icon" className="icon" />
+          VIEW ALL PRODUCTS
+        </button>
+      </div>
     </div>
   );
 };

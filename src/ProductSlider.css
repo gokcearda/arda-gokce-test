@@ -1,7 +1,18 @@
 .product-image {
     transition: transform 0.2s;
+    border-radius: 10px;
+    width: 200px !important;
+  height: 200px !important; 
+  object-fit: cover; 
   }
   
   .product-image:hover {
     transform: scale(1.1);
+  }
+  .product-name {
+    font-size: 10pt;
+    margin-top: 10px; 
+  }
+  .product-price{
+    font-size: 11pt;
   }

@@ -46,7 +46,7 @@ body {
 }
 
 body {
-  background: #eee;
+  background: #fff;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
@@ -64,7 +64,6 @@ body {
   font-size: 18px;
   background: #fff;
 
-  /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,12 +74,13 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  text-align: center;
 }
 .swiper-button-next,
 .swiper-button-prev {
   color: black;
   font-size: 18px;
-  z-index: 10; /* Bu satırı ekleyin */
+  z-index: 10; 
 }
 .color-buttons {
   display: flex;
@@ -100,19 +100,24 @@ body {
 }
 
 .color-button.W {
-  background-color: silver; /* Gümüş rengi */
+  background-color: silver; 
 }
 
 .color-button.R {
-  background-color: #e74c3c; /* Gül rengi */
+  background-color: #e74c3c;
 }
 
 .color-button.Y {
-  background-color: #f1c40f; /* Sarı rengi */
+  background-color: #f1c40f; 
 }
 
 .color-button.active {
-  transform: scale(1.1); /* Etkin renk butonunu biraz büyütme */
+  transform: scale(1.1);
+}
+.product-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .product-slider-container {
   text-align: center;
@@ -121,4 +126,55 @@ body {
 .color-buttons-container {
   display: inline-block;
   margin-top: 10px;
+}
+.store-title {
+  font-size: 12pt;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.section-title {
+  font-size: 22pt;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.icons-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  width: 20px; 
+  height: 20px; 
+  margin-right: 5px;
+}
+.button-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.view-all-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.view-all-button:hover,
+.view-all-button:focus {
+  background-color: black;
+  color: white;
 }
