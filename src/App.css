@@ -96,7 +96,7 @@ body {
   &:hover {
     transform: scale(1.1);
   }
-  margin: 0 5px; /* İstenilen boşluk değeri */
+  margin: 0 5px;
 }
 
 .color-button.W {
